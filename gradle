@@ -1,0 +1,72 @@
+gradle clean execute \
+    -Dorg.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.13.jdk/Contents/Home \
+    -Dexec.mainClass=com.lbg.comcda.data.insights.pipeline.BigQueryToSpanner \
+    -Dexec.args="--spannerInstanceID=dmn01-comcda-bld-01-edi-euwest \
+    --spannerDatabaseID=external-data-soe \
+    --jobName=comcda-insights-soi-to-soe\
+    --spannerTableNameTI=TIME_INTERVAL \
+    --primaryKeyIDTI=INTERVAL_ID \
+    --mutationOp=INSERT_OR_UPDATE \
+    --spannerTableNameTxnAgg=TRANSACTION_AGGREGATION \
+    --spannerTableNameTxn=TRANSACTIONS_NEW\
+    --primaryKeyIDTxn=TXN_ID,SCHEME_IDENTIFIER,TXN_TS \
+    --primaryKeyIDTxnAgg=BUS_PARTY_ID,INTERVAL_ID,SCHEME_IDENTIFIER,AGGREGATION_TYPE,CURRENCY \
+    --productName=TIME_INTERVAL_REF \
+    --updateCheck=false \
+    --sourceName=TI \
+    --tempLocation=gs://dmn01-comcda-bld-01-stb-euwe2-data-insights/dataflow/dataflow_temp \
+    --tempDataset=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights\
+    --stagingLocation=gs://dmn01-comcda-bld-01-stb-euwe2-data-insights/dataflow/dataflow_staging \
+    --timeIntervalReadDataQuery=TI \
+    --txnReadDataQuery=TI \
+    --txnAggReadDataQuery=TI\
+    --txnAggTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.TXN_AGG_STAGING\
+    --spannerTableNameCustRef=CUSTOMER_REFERENCE\
+    --bqCountTable=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.BQ_COUNT\
+    --customerCsvPath=/Users/abhnagar/Downloads/YBI_AL21307_AL21307_Cohort_25k_Flag_N.csv\
+    --outputError=gs://dmn01-comsoi-bld-01-stb-euwe2-data-insights/YBI_AL21307/YBI_DATAFLOW_ERROR\
+    --outputNotify=gs://dmn01-comsoi-bld-01-stb-euwe2-data-insights/YBI_AL21307/AL21307\
+    --customerRefTableName=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.CUSTOMER_REFERENCE\
+    --customerRefStgTableName=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.CUSTOMER_REFERENCE_STAGING\
+    --productTableName=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.TXN_AGG_ERR\
+    --primaryKeyIDCustRef=BUS_PARTY_ID\
+    --spannerTableNameProduct=PRODUCT\
+    --spannerTableNameFeatureStore=FEATURE_STORE\
+    --primaryKeyIDFeatureStore=FEATURE_STORE_ID\
+    --featureStoreTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.FEATURE_STORE_STAGING\
+    --bqProjectId=dmn01-comsoi-bld-01-8b80\
+    --spannerTableNameBatchAudit=BATCH_AUDIT\
+    --flexiDataQuery=flexiQuery\
+    --primaryKeyIDFlexi=RTIM_CUST_ID,BUS_PTY_ID,PARTY_ID,KEY_NAME\
+    --spannerTableNameFlexi=PRODUCT_ELIGIBILITY\
+    --batchAuditTableName=dmn01_comsoi_bqd_euwe2_data_insights.BATCH_AUDIT\
+    --gcsParentBucket=dmn01-comcda-bld-01-stb-euwe2-dat-df-inbound\
+    --batchSizeBytes=1048576\
+    --maxNumMutations=40000\
+    --primaryKeyIDProduct=PRODUCT_ID\
+    --productErrTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.PRODUCT_ERROR\
+    --featureStoreErrTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.FEATURE_STORE_ERROR\
+    --customerRefErrTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.CUSTOMER_REFERENCE_ERROR\
+    --txnAggErrTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.TXN_AGG_ERROR\
+    --txnErrTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.TXN_ERROR\
+    --tiErrTableNameBq=dmn01-comsoi-bld-01-8b80:dmn01_comsoi_bqd_euwe2_data_insights.TIME_INTERVAL_ERROR\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/legacy_credentials/abhishek.nagaruru@e.lloydsbanking.com/adc.json
+
+
+
+gradle clean execute -Dorg.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk-11.0.13.jdk/Contents/Home  -Dexec.mainClass=com.lbg.dataInsights.flexi.FlexiBqToSpnTranfer -Dexec.args=" --project=dmn01-comcda-bld-01-2674 --spannerInstanceID=dmn01-comcda-bld-01-edi-euwest --spnDatabaseName=external-data-soe    --tempLocation=gs://dmn01-comcda-bld-01-stb-euwe2-data-insights/dataflow/dataflow_temp  --flexiSourceBucketPath=gs://dmn01-comsoi-bld-01-stb-euwe2-data-insights/YBI_AL21307/AL21307
+  --stagingLocation=gs://dmn01-comcda-bld-01-stb-euwe2-data-insights/dataflow/data_staging --spnTableName=PRODUCT_ELIGIBILITY_NEW " 
